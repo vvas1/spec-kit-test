@@ -1,0 +1,36 @@
+---
+description: Project Development Guidelines
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# spec-kit-test Development Guidelines
+
+Auto-generated from all feature plans. Last updated: 2026-03-04
+
+## Active Technologies
+
+- Go 1.21+ (backend), TypeScript 5.x (frontend) + React 18, Material UI (MUI), Go standard library + MongoDB driver; frontend build (e.g. Vite) (001-issue-crud)
+
+## Project Structure
+
+```text
+backend/
+frontend/
+tests/
+```
+
+## Commands
+
+npm test && npm run lint
+
+## Code Style
+
+Go 1.21+ (backend), TypeScript 5.x (frontend): Follow standard conventions
+
+## Recent Changes
+
+- 001-issue-crud: Added Go 1.21+ (backend), TypeScript 5.x (frontend) + React 18, Material UI (MUI), Go standard library + MongoDB driver; frontend build (e.g. Vite)
+
+<!-- MANUAL ADDITIONS START -->
+<!-- MANUAL ADDITIONS END -->
