@@ -1,0 +1,26 @@
+# MongoDB for local development and CI (002-containerize-database)
+# Start: docker compose up -d db
+# Stop (keep data): docker compose down
+# Stop and remove data: docker compose down -v
+
+services:
+  db:
+    image: mongo:7
+    container_name: mongodb
+    ports:
+      - "27017:27017"   # Listen on all interfaces (reachable from any host). For localhost-only use "127.0.0.1:27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      # Optional: set for auth (then use in MONGODB_URI)
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME:-}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD:-}
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+volumes:
+  mongodb_data:
