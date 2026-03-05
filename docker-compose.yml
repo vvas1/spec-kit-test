@@ -1,9 +1,10 @@
-# MongoDB + Backend for local development and CI (002-containerize-database, 003-containerize-backend)
+# MongoDB + Backend + Frontend for local development and CI (002, 003, 004-containerize-frontend)
 # Start DB only: docker compose up -d db
-# Start DB + backend: docker compose up -d (backend waits for db healthy)
+# Start full stack: docker compose up -d (db, backend, frontend)
 # Stop (keep data): docker compose down
 # Stop and remove data: docker compose down -v
-# Backend is NOT exposed to host; reachable only from other containers at http://backend:8080
+# Backend: not exposed to host; reachable at http://backend:8080 from other containers
+# Frontend: http://localhost:3000 (host port 3000 → container port 5137)
 
 services:
   db:
@@ -34,6 +35,16 @@ services:
       db:
         condition: service_healthy
     # No ports: backend is only reachable from other containers at backend:8080 (spec 003-containerize-backend)
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:5137"   # Host 3000 → container 5137 (spec 004-containerize-frontend)
+    environment:
+      - VITE_API_URL=http://backend:8080
+    # Same network as backend so http://backend:8080 resolves; optional depends_on backend
 
 volumes:
   mongodb_data:
