@@ -1,7 +1,9 @@
-# MongoDB for local development and CI (002-containerize-database)
-# Start: docker compose up -d db
+# MongoDB + Backend for local development and CI (002-containerize-database, 003-containerize-backend)
+# Start DB only: docker compose up -d db
+# Start DB + backend: docker compose up -d (backend waits for db healthy)
 # Stop (keep data): docker compose down
 # Stop and remove data: docker compose down -v
+# Backend is NOT exposed to host; reachable only from other containers at http://backend:8080
 
 services:
   db:
@@ -21,6 +23,17 @@ services:
       timeout: 5s
       retries: 5
       start_period: 10s
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      - MONGODB_URI=mongodb://db:27017
+    depends_on:
+      db:
+        condition: service_healthy
+    # No ports: backend is only reachable from other containers at backend:8080 (spec 003-containerize-backend)
 
 volumes:
   mongodb_data:
