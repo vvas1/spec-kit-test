@@ -1,0 +1,21 @@
+# Dependencies and build artifacts
+node_modules/
+dist/
+build/
+coverage/
+*.log
+.env
+.env.*
+!.env.example
+
+# Git and IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+*.swp
+*.tmp
+
+# Spec and docs (not needed in image)
+*.md
+!README.md
