@@ -1,0 +1,24 @@
+# Build and test artifacts
+*.exe
+*.test
+*.out
+coverage/
+vendor/
+
+# Git and IDE
+.git/
+.gitignore
+.vscode/
+.idea/
+*.swp
+*.tmp
+
+# Env and logs (do not bake secrets into image)
+.env
+.env.*
+!.env.example
+*.log
+
+# Spec and docs (not needed in image)
+*.md
+!README.md
